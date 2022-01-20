@@ -7,6 +7,7 @@ const $body = $("body");
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
 
+const $storyForm = $("#story-form");
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
@@ -22,6 +23,7 @@ const $navLogOut = $("#nav-logout");
 function hidePageComponents() {
   const components = [
     $allStoriesList,
+    $storyForm,
     $loginForm,
     $signupForm,
   ];
