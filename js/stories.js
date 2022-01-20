@@ -55,14 +55,15 @@ function putStoriesOnPage() {
  * On story form submission, get form data and add new story
  */
 
-async function submitNewStory (evt){
+async function submitNewStory(evt) {
   evt.preventDefault();
-  let newStoryTitle = $('#story-title').val();
-  let newStoryAuthor = $('#story-author').val();
-  let newStoryUrl = $('#story-url').val();
-  let newStory = {title:newStoryTitle, author:newStoryAuthor, url:newStoryUrl};
+  let title = $('#story-title').val();
+  let author = $('#story-author').val();
+  let url = $('#story-url').val();
+  let newStory = { title, author, url };
 
-  await Storylist.addStory(currentUser, newStory);
+  console.log(newStory);
+  await storyList.addStory(currentUser, newStory);
 
   console.log(storyList);
   putStoriesOnPage();
