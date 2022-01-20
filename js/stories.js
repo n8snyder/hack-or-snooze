@@ -62,7 +62,7 @@ async function submitNewStory (evt){
   let newStoryUrl = $('#story-url').val();
   let newStory = {title:newStoryTitle, author:newStoryAuthor, url:newStoryUrl};
 
-  await storyList.addStory(currentUser, newStory);
+  await Storylist.addStory(currentUser, newStory);
 
   console.log(storyList);
   putStoriesOnPage();
