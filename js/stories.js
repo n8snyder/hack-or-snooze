@@ -67,6 +67,12 @@ async function submitNewStory(evt) {
 
   console.log(storyList);
   putStoriesOnPage();
+  /** Could do:
+   *  $allStoriesList.append($story);
+   *  instead of putStoriesOnPage()
+   */
 }
 
 $storyForm.on('submit', submitNewStory);
+
+// TODO: reset form, hide it
