@@ -84,7 +84,7 @@ class StoryList {
     const { story } = response.data;
     
 
-    return new Story(
+    const addedStory = new Story(
       {
         title: story.title,
         author: story.author,
@@ -92,6 +92,10 @@ class StoryList {
       },
       response.data.token
     );
+
+    this.stories.unshift(addedStory);
+
+    return addedStory;
   }
 }
 
