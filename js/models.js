@@ -18,6 +18,7 @@ class Story {
 		this.url = url;
 		this.username = username;
 		this.createdAt = createdAt;
+		this.oEmbed = '';
 	}
 
 	/** Parses hostname out of URL and returns it. */
@@ -48,9 +49,10 @@ class Story {
 	}
 
 	async getOembed() {
-		const response = await axios.get(`http://${this.getHostName()}/oembed`,
-			{ params: { url: this.url, format: 'json' } });
-		return response.data.html;
+		const response = await axios.get(`http://${this.getHostName()}/oembed`, {
+			params: { url: this.url, format: 'json' },
+		});
+		this.oEmbed = response.data.html;
 	}
 }
 

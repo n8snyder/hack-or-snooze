@@ -26,8 +26,10 @@ function generateStoryMarkup(story) {
 		currentUser.favorites.find(favStory => story.storyId === favStory.storyId);
 	const starClass = favoriteStory === undefined ? 'far' : 'fas';
 	const hostName = story.getHostName();
+
 	return $(`
       <li id="${story.storyId}">
+      <span class="embed"></span>
       <span class="star"><i class="${starClass} fa-star"></i></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
@@ -56,7 +58,15 @@ function putStoriesOnPage(
 	}
 
 	target.show();
+
+	getEmbedsAndDisplay();
 }
+
+/**
+ * TODO: Gets oembed for each story and injects it into HTML
+ */
+
+async function getEmbedsAndDisplay() {}
 
 /**
  * On story form submission, get form data and add new story
@@ -102,4 +112,3 @@ async function toggleFavorite(evt) {
 }
 
 $body.on('click', '.star', toggleFavorite);
-
