@@ -21,11 +21,10 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
 	// console.debug("generateStoryMarkup", story);
-
-	let starClass = currentUser.favorites.find(
-		favStory => story.storyId === favStory.storyId)
-		? "fas"
-		: "far";
+	let favoriteStory =
+		currentUser &&
+		currentUser.favorites.find(favStory => story.storyId === favStory.storyId);
+	let starClass = favoriteStory === undefined ? 'far' : 'fas';
 	const hostName = story.getHostName();
 	return $(`
       <li id="${story.storyId}">
@@ -82,6 +81,7 @@ $storyForm.on('submit', submitNewStory);
 
 async function toggleFavorite(evt) {
 	console.debug('toggleFavorite', evt);
+	if (currentUser === undefined) return;
 	const storyId = $(evt.target).parent().parent().attr('id');
 	const story = getStory(storyId);
 
@@ -98,16 +98,15 @@ async function toggleFavorite(evt) {
 
 $body.on('click', '.star', toggleFavorite);
 
-
 /** Returns a story instance given a storyId */
 
 function getStory(storyId) {
 	let story;
 	story = storyList.stories.find(s => s.storyId === storyId);
-	if (story === undefined) {
+	if (currentUser && story === undefined) {
 		story = currentUser.favorites.find(s => s.storyId === storyId);
 	}
-	if (story === undefined) {
+	if (currentUser && story === undefined) {
 		story = currentUser.ownStories.find(s => s.storyId === storyId);
 	}
 
