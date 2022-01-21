@@ -21,10 +21,10 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
 	// console.debug("generateStoryMarkup", story);
-	let favoriteStory =
+	const favoriteStory =
 		currentUser &&
 		currentUser.favorites.find(favStory => story.storyId === favStory.storyId);
-	let starClass = favoriteStory === undefined ? 'far' : 'fas';
+	const starClass = favoriteStory === undefined ? 'far' : 'fas';
 	const hostName = story.getHostName();
 	return $(`
       <li id="${story.storyId}">
@@ -38,11 +38,13 @@ function generateStoryMarkup(story) {
       </li>
     `);
 }
-// TODO: change let to const for favoriteStory
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
-function putStoriesOnPage(stories, target) {
+function putStoriesOnPage(
+	stories = storyList.stories,
+	target = $allStoriesList
+) {
 	console.debug('putStoriesOnPage');
 
 	target.empty();
@@ -55,7 +57,6 @@ function putStoriesOnPage(stories, target) {
 
 	target.show();
 }
-// TODO: new arguments should have default args to not break contract with other coders ^
 
 /**
  * On story form submission, get form data and add new story
@@ -85,20 +86,20 @@ async function toggleFavorite(evt) {
 	console.debug('toggleFavorite', evt);
 	if (currentUser === undefined) return;
 
-	const storyId = $(evt.target).closest('li').attr('id');
+	const $starClicked = $(evt.target);
+	const storyId = $starClicked.closest('li').attr('id');
 	const story = getStory(storyId);
 
-	if ($(evt.target).hasClass('far')) {
+	if ($starClicked.hasClass('far')) {
 		// Favoriting
 		await currentUser.addFavorite(story);
-		$(evt.target).addClass('fas').removeClass('far');
-	} else if ($(evt.target).hasClass('fas')) {
+		$starClicked.addClass('fas').removeClass('far');
+	} else if ($starClicked.hasClass('fas')) {
 		// Unfavoriting
 		await currentUser.removeFavorite(story);
-		$(evt.target).addClass('far').removeClass('fas');
+		$starClicked.addClass('far').removeClass('fas');
 	}
 }
-// TODO: store $(evt.target) because we reuse
 
 $body.on('click', '.star', toggleFavorite);
 

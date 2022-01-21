@@ -218,36 +218,33 @@ class User {
 	}
 
 	/**
-	 * Adds a favorite to the user instance
+	 * Adds a favorite to the user instance and updates user favorites on server
 	 * @param {*} story
 	 */
 	async addFavorite(story) {
-		let favoriteStoryId = story.storyId;
+		const favoriteStoryId = story.storyId;
 		const response = await axios.post(
-			`${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
+			`${BASE_URL}/users/${this.username}/favorites/${favoriteStoryId}`,
 			{ token: currentUser.loginToken }
 		);
 
-		currentUser.favorites.push(story);
+		this.favorites.push(story);
 	}
 
 	/**
 	 * Removes a favorite from the user instance
+	 * and updates user favorites on server
 	 * @param {*} story
 	 */
 	async removeFavorite(story) {
-		let favoriteStoryId = story.storyId;
+		const favoriteStoryId = story.storyId;
 		const response = await axios.delete(
-			`${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
+			`${BASE_URL}/users/${this.username}/favorites/${favoriteStoryId}`,
 			{ data: { token: currentUser.loginToken } }
 		);
 
-		currentUser.favorites = currentUser.favorites.filter(
+		this.favorites = this.favorites.filter(
 			story => story.storyId !== favoriteStoryId
 		);
 	}
 }
-
-// TODO: make let favoriteStoryId a const instead of let
-// TODO: change currentUser.{} to this.{}
-// TODO: include docstring about sending data to server
