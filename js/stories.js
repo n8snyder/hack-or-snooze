@@ -9,7 +9,7 @@ async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
 
-  putStoriesOnPage();
+  putStoriesOnPage(storyList.stories, $allStoriesList);
 }
 
 /**
@@ -22,10 +22,11 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
+  //TODO: check star status and conditionally change class
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <span class="star"><i class="far fa-star"></i></span>
+      <span class="star"><i class="far fa-star"></i></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -38,18 +39,18 @@ function generateStoryMarkup(story) {
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
-function putStoriesOnPage() {
+function putStoriesOnPage(stories, target) {
   console.debug("putStoriesOnPage");
 
-  $allStoriesList.empty();
+  target.empty();
 
   // loop through all of our stories and generate HTML for them
-  for (let story of storyList.stories) {
+  for (let story of stories) {
     const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
+    target.append($story);
   }
 
-  $allStoriesList.show();
+  target.show();
 }
 
 /**
@@ -67,13 +68,12 @@ async function submitNewStory(evt) {
   await storyList.addStory(currentUser, newStory);
 
   console.log(storyList);
-  putStoriesOnPage();
+  putStoriesOnPage(storyList.stories, $allStoriesList);
 
   $storyForm.slideUp().trigger('reset');
 }
 
 $storyForm.on('submit', submitNewStory);
-
 
 /** Add/Remove story from user's favorites on clicking star */
 
