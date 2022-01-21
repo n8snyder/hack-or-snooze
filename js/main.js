@@ -22,7 +22,7 @@ const $navLogOut = $('#nav-logout');
  */
 
 function hidePageComponents() {
-	const components = [$allStoriesList, $storyForm, $loginForm, $signupForm];
+	const components = [$allStoriesList, $storyForm, $loginForm, $signupForm, $allFavoritesList];
 	components.forEach(c => c.hide());
 }
 
@@ -43,8 +43,8 @@ async function start() {
 
 console.warn(
 	'HEY STUDENT: This program sends many debug messages to' +
-		" the console. If you don't see the message 'start' below this, you're not" +
-		' seeing those helpful debug messages. In your browser console, click on' +
-		" menu 'Default Levels' and add Verbose"
+	" the console. If you don't see the message 'start' below this, you're not" +
+	' seeing those helpful debug messages. In your browser console, click on' +
+	" menu 'Default Levels' and add Verbose"
 );
 $(start);
