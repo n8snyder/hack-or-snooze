@@ -67,12 +67,8 @@ async function submitNewStory(evt) {
 
   console.log(storyList);
   putStoriesOnPage();
-  /** Could do:
-   *  $allStoriesList.append($story);
-   *  instead of putStoriesOnPage()
-   */
+
+  $storyForm.slideUp().trigger('reset');
 }
 
 $storyForm.on('submit', submitNewStory);
-
-// TODO: reset form, hide it

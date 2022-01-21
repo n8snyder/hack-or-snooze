@@ -223,4 +223,36 @@ class User {
       return null;
     }
   }
+
+  /**
+   * Adds a favorite to the user instance
+   * @param {*} story 
+   */
+  async addFavorite(story){
+    let favoriteStoryId = story.storyId;
+    const response = await axios.post(
+      `${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
+      {token:currentUser.loginToken}
+      );
+    
+    currentUser.favorites.push(story);
+
+  }
+
+  /**
+   * Removes a favorite from the user instance
+   * @param {*} story 
+   */
+  async removeFavorite(story){
+    let favoriteStoryId = story.storyId;
+    const response = await axios.delete(
+      `${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
+      {token:currentUser.loginToken}
+      );
+    
+
+    currentUser.favorites = currentUser.favorites.filter(
+      (story) => story.storyId !== favoriteStoryId
+    );
+  }
 }
