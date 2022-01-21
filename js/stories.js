@@ -82,7 +82,7 @@ $storyForm.on('submit', submitNewStory);
 async function toggleFavorite(evt) {
 	console.debug('toggleFavorite', evt);
 	if (currentUser === undefined) return;
-	const storyId = $(evt.target).parent().parent().attr('id');
+	const storyId = $(evt.target).closest('li').attr('id');
 	const story = getStory(storyId);
 
 	if ($(evt.target).hasClass('far')) {

@@ -15,6 +15,7 @@ const $signupForm = $('#signup-form');
 const $navLogin = $('#nav-login');
 const $navUserProfile = $('#nav-user-profile');
 const $navLogOut = $('#nav-logout');
+const $navUserOptions = $('#nav-user-options');
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -22,7 +23,13 @@ const $navLogOut = $('#nav-logout');
  */
 
 function hidePageComponents() {
-	const components = [$allStoriesList, $storyForm, $loginForm, $signupForm, $allFavoritesList];
+	const components = [
+		$allStoriesList,
+		$storyForm,
+		$loginForm,
+		$signupForm,
+		$allFavoritesList,
+	];
 	components.forEach(c => c.hide());
 }
 
@@ -43,8 +50,8 @@ async function start() {
 
 console.warn(
 	'HEY STUDENT: This program sends many debug messages to' +
-	" the console. If you don't see the message 'start' below this, you're not" +
-	' seeing those helpful debug messages. In your browser console, click on' +
-	" menu 'Default Levels' and add Verbose"
+		" the console. If you don't see the message 'start' below this, you're not" +
+		' seeing those helpful debug messages. In your browser console, click on' +
+		" menu 'Default Levels' and add Verbose"
 );
 $(start);

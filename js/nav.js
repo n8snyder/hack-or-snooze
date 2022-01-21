@@ -23,7 +23,7 @@ function navSubmitClick(evt) {
 	$storyForm.show();
 }
 
-$body.on('click', '#nav-submit', navSubmitClick);
+$body.on('click', '#nav-submit-story', navSubmitClick);
 
 /** Hide page content and show favorites list view */
 
