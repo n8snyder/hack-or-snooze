@@ -46,6 +46,12 @@ class Story {
 
 		return story;
 	}
+
+	async getOembed() {
+		const response = await axios.get(`http://${this.getHostName()}/oembed`,
+			{ params: { url: this.url, format: 'json' } });
+		return response.data.html;
+	}
 }
 
 /******************************************************************************
