@@ -25,6 +25,27 @@ class Story {
 	getHostName() {
 		return new URL(this.url).host;
 	}
+
+	/** Returns a story instance given a storyId */
+
+	static async getStory(storyId) {
+		let story;
+		story = storyList.stories.find(s => s.storyId === storyId);
+		if (currentUser && story === undefined) {
+			story = currentUser.favorites.find(s => s.storyId === storyId);
+		}
+		if (currentUser && story === undefined) {
+			story = currentUser.ownStories.find(s => s.storyId === storyId);
+		}
+		if (currentUser && story === undefined) {
+			const response = await axios.get(`${BASE_URL}/stories/${storyId}`, {
+				params: { storyId: storyId },
+			});
+			story = new Story(response.data.story);
+		}
+
+		return story;
+	}
 }
 
 /******************************************************************************

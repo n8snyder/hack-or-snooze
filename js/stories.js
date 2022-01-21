@@ -88,7 +88,7 @@ async function toggleFavorite(evt) {
 
 	const $starClicked = $(evt.target);
 	const storyId = $starClicked.closest('li').attr('id');
-	const story = await getStory(storyId);
+	const story = await Story.getStory(storyId);
 
 	if ($starClicked.hasClass('far')) {
 		// Favoriting
@@ -103,23 +103,3 @@ async function toggleFavorite(evt) {
 
 $body.on('click', '.star', toggleFavorite);
 
-/** Returns a story instance given a storyId */
-
-async function getStory(storyId) {
-	let story;
-	story = storyList.stories.find(s => s.storyId === storyId);
-	if (currentUser && story === undefined) {
-		story = currentUser.favorites.find(s => s.storyId === storyId);
-	}
-	if (currentUser && story === undefined) {
-		story = currentUser.ownStories.find(s => s.storyId === storyId);
-	}
-	if (currentUser && story === undefined) {
-		const response = await axios.get(`${BASE_URL}/stories/${storyId}`, {
-			params: { storyId: storyId },
-		});
-		story = new Story(response.data.story);
-	}
-
-	return story;
-}
