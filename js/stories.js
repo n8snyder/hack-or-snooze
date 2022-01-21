@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <span class="star"><i class="far fa-star"></i></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -72,3 +73,24 @@ async function submitNewStory(evt) {
 }
 
 $storyForm.on('submit', submitNewStory);
+
+
+/** Add/Remove story from user's favorites on clicking star */
+
+async function toggleFavorite(evt) {
+  console.debug("toggleFavorite", evt);
+  const storyId = $(evt.target).parent().parent().attr("id");
+  const story = storyList.stories.find(s => s.storyId === storyId);
+
+  if ($(evt.target).hasClass("far")) {
+    // Favoriting
+    await currentUser.addFavorite(story);
+    $(evt.target).addClass("fas").removeClass("far");
+  } else if ($(evt.target).hasClass("fas")) {
+    // Unfavoriting
+    await currentUser.removeFavorite(story);
+    $(evt.target).addClass("far").removeClass("fas");
+  }
+}
+
+$allStoriesList.on("click", ".star", toggleFavorite);

@@ -228,13 +228,13 @@ class User {
    * Adds a favorite to the user instance
    * @param {*} story 
    */
-  async addFavorite(story){
+  async addFavorite(story) {
     let favoriteStoryId = story.storyId;
     const response = await axios.post(
       `${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
-      {token:currentUser.loginToken}
-      );
-    
+      { token: currentUser.loginToken }
+    );
+
     currentUser.favorites.push(story);
 
   }
@@ -243,13 +243,13 @@ class User {
    * Removes a favorite from the user instance
    * @param {*} story 
    */
-  async removeFavorite(story){
+  async removeFavorite(story) {
     let favoriteStoryId = story.storyId;
     const response = await axios.delete(
       `${BASE_URL}/users/${currentUser.username}/favorites/${favoriteStoryId}`,
-      {token:currentUser.loginToken}
-      );
-    
+      { data: { token: currentUser.loginToken } }
+    );
+
 
     currentUser.favorites = currentUser.favorites.filter(
       (story) => story.storyId !== favoriteStoryId
