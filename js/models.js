@@ -23,8 +23,7 @@ class Story {
 	/** Parses hostname out of URL and returns it. */
 
 	getHostName() {
-		// UNIMPLEMENTED: complete this function!
-		return 'hostname.com';
+		return new URL(this.url).host;
 	}
 }
 
@@ -163,9 +162,9 @@ class User {
 
 	/** Login in user with API, make User instance & return it.
 
-   * - username: an existing user's username
-   * - password: an existing user's password
-   */
+	 * - username: an existing user's username
+	 * - password: an existing user's password
+	 */
 
 	static async login(username, password) {
 		const response = await axios({
@@ -248,3 +247,7 @@ class User {
 		);
 	}
 }
+
+// TODO: make let favoriteStoryId a const instead of let
+// TODO: change currentUser.{} to this.{}
+// TODO: include docstring about sending data to server

@@ -38,6 +38,7 @@ function generateStoryMarkup(story) {
       </li>
     `);
 }
+// TODO: change let to const for favoriteStory
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
@@ -54,6 +55,7 @@ function putStoriesOnPage(stories, target) {
 
 	target.show();
 }
+// TODO: new arguments should have default args to not break contract with other coders ^
 
 /**
  * On story form submission, get form data and add new story
@@ -82,6 +84,7 @@ $storyForm.on('submit', submitNewStory);
 async function toggleFavorite(evt) {
 	console.debug('toggleFavorite', evt);
 	if (currentUser === undefined) return;
+
 	const storyId = $(evt.target).closest('li').attr('id');
 	const story = getStory(storyId);
 
@@ -95,6 +98,7 @@ async function toggleFavorite(evt) {
 		$(evt.target).addClass('far').removeClass('fas');
 	}
 }
+// TODO: store $(evt.target) because we reuse
 
 $body.on('click', '.star', toggleFavorite);
 

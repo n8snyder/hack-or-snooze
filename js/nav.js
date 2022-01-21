@@ -32,12 +32,14 @@ function navFavoritesClick(evt) {
 	hidePageComponents();
 	putStoriesOnPage(currentUser.favorites, $allFavoritesList);
 }
+// NOTE: If favorites gets more complex, break into new function
 
 $body.on('click', '#nav-favorites', navFavoritesClick);
 
 /** Show login/signup on click on "login" */
 
 function navLoginClick(evt) {
+	evt.preventDefault();
 	console.debug('navLoginClick', evt);
 	hidePageComponents();
 	$loginForm.show();
