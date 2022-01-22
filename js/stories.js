@@ -43,7 +43,7 @@ function generateStoryMarkup(story) {
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
-function putStoriesOnPage(
+async function putStoriesOnPage(
 	stories = storyList.stories,
 	target = $allStoriesList
 ) {
@@ -59,7 +59,7 @@ function putStoriesOnPage(
 
 	target.show();
 
-	getEmbedsAndDisplay();
+	await getEmbedsAndDisplay();
 }
 
 /**
@@ -69,16 +69,18 @@ function putStoriesOnPage(
 async function getEmbedsAndDisplay() {
 	for (let story of storyList.stories) {
 		console.log(storyList.stories.length);
+
 		try {
 			await story.getOembed();
-			console.log("storyId:", story.storyId);
-			$(`#${story.storyId} .embed`).append(story.oEmbed);
-			console.log("Finished embedding");
 		} catch {
-			console.log("ERROR: storyId:", story.storyId);
+			console.log('ERROR: storyId:', story.storyId);
+			continue;
 		}
 
-
+		if ($(`li#${story.storyId} .embed`).children().length === 0) {
+			$(`#${story.storyId} .embed`).append(story.oEmbed);
+			console.log('Finished embedding');
+		}
 	}
 }
 
