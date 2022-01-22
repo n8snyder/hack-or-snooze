@@ -68,12 +68,10 @@ async function putStoriesOnPage(
 
 async function getEmbedsAndDisplay() {
 	for (let story of storyList.stories) {
-		console.log(storyList.stories.length);
 
 		try {
 			await story.getOembed();
 		} catch {
-			console.log('ERROR: storyId:', story.storyId);
 			continue;
 		}
 

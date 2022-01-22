@@ -49,7 +49,10 @@ class Story {
 	}
 
 	async getOembed() {
-		const response = await axios.get(`http://${this.getHostName()}/oembed`, {
+		const oEmbedUrl = oEmbedProviders.find(provider => {
+			return new URL(provider.provider_url).host === this.getHostName()
+		}).endpoints[0].url;
+		const response = await axios.get(oEmbedUrl, {
 			params: { url: this.url, format: 'json' },
 		});
 		this.oEmbed = response.data.html;
