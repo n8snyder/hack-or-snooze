@@ -63,10 +63,24 @@ function putStoriesOnPage(
 }
 
 /**
- * TODO: Gets oembed for each story and injects it into HTML
+ * Gets oembed for each story and injects it into HTML
  */
 
-async function getEmbedsAndDisplay() {}
+async function getEmbedsAndDisplay() {
+	for (let story of storyList.stories) {
+		console.log(storyList.stories.length);
+		try {
+			await story.getOembed();
+			console.log("storyId:", story.storyId);
+			$(`#${story.storyId} .embed`).append(story.oEmbed);
+			console.log("Finished embedding");
+		} catch {
+			console.log("ERROR: storyId:", story.storyId);
+		}
+
+
+	}
+}
 
 /**
  * On story form submission, get form data and add new story
